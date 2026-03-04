@@ -1,3 +1,5 @@
+from option5_stack import option5
+
 def convert(n):
     hex_val = format(n, "X")
     bin_val = format(n, "016b")
@@ -25,13 +27,13 @@ def main():
         choice = input("Enter your choice: ")
         if choice == '1':
             option1()
+        elif choice == '5':
+            option5()
         elif choice == '0':
             print("Exiting the program. Goodbye!")
             break
         else:
             print("Invalid choice. Please try again.")
-
-if __name__ == "__main__":    main()
 
 def show_menu():
     print("Welcome to the Maths Converter!")
@@ -42,5 +44,11 @@ def show_menu():
     print("4) Array addressing")
     print("5) Stack frame")
     print("0) Exit")
+
+
+if __name__ == "__main__":
+    main()
+
+
 
 
