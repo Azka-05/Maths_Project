@@ -1,6 +1,6 @@
 def convert(n):
-    hex_val = format(n, "X")
-    bin_val = format(n, "016b")
+    hex_str = format(n, "X")
+    bin16_str = format(n, "016b")
 
     if n < 32768:
         signed = n 
