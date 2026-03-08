@@ -13,11 +13,11 @@ def ascii_dump_lines(s, base=0x1000):
     null_address = base + len(s) 
     memory[null_address] = 0   
 
-    line = []
+    lines = []
 
-    for address in range(base, base + len(s) + 1)
+    for address in range(base, base + len(s) + 1):
         value = memory[address]
-        formatted_line = f"0x{address:04x} : 0x{value:02X}"
+        formatted_line = f"0x{address:04X} : 0x{value:02X}"
         lines.append(formatted_line)
 
     length = 0
@@ -28,3 +28,7 @@ def ascii_dump_lines(s, base=0x1000):
         current_address +=1
 
     return lines, length        
+
+
+
+ 
