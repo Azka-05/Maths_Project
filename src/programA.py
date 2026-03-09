@@ -45,7 +45,6 @@ def show_menu():
     print("5) Stack frame")
     print("0) Exit")
 
-<<<<<<< HEAD
 #def convert(n):
 
 #def ascii
@@ -80,11 +79,9 @@ def ascii_dump_lines(s, base=0x1000):
 
 
 
-=======
 
 if __name__ == "__main__":
     main()
->>>>>>> feb6e62d48b8249a4f8bb7c17837cd8722c03842
 
 
 
