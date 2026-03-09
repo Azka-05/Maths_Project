@@ -1,4 +1,7 @@
 from option5_stack import option5
+from option4_array import array_addressing
+
+
 
 def convert(n):
     hex_val = format(n, "X")
@@ -27,6 +30,18 @@ def main():
         choice = input("Enter your choice: ")
         if choice == '1':
             option1()
+        elif choice == '4':
+
+            base = int(input("Base address: "))
+            index = int(input("Index: "))
+            size = int(input("Element size (1 or 2): "))
+            mode = input("Mode (read/write): ")
+            if mode == "write":
+                value = int(input("Value:"))
+                array_addressing(base, index, size, mode, value)
+            else:
+                array_addressing(base, index, size, mode)
+                
         elif choice == '5':
             option5()
         elif choice == '0':
