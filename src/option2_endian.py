@@ -110,7 +110,7 @@ def option2_little_endian(n: int, addr: int) -> dict:
     # step 4- rebuilding the original number from the bytes
     unpacked = unpack_u16_le(read_low, read_high)
 
-    # returning all values so the main program can print them
+    # returning all values so the main program is able to print them
     return {
         "low": low,
         "high": high,
