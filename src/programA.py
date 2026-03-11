@@ -61,7 +61,6 @@ def main():
             option1()
 
         elif choice == '2':
-
             while True:
                 try:
                     n = int(input("Enter integer n (0-65535): "))
@@ -71,14 +70,17 @@ def main():
                         print("Invalid input. Please enter a number between 0 and 65535.")
                 except ValueError:
                     print("Invalid input. Please enter a number.")
-                    
+
             while True:
                 try:
                     addr = int(input("Enter memory address: "))
-                    break
+                    if addr >= 0:
+                        break
+                    else:
+                        print("Invalid input. Address must be non-negative.")
                 except ValueError:
-                    print("Invalid input. Please enter a number. ")
-        
+                    print("Invalid input. Please enter a number.")
+
             result = option2_little_endian(n, addr)
 
             print(f"Low Byte: {result['low']}")
@@ -153,6 +155,7 @@ def main():
             break
 
         else:
+            
             print()
 
 if __name__ == "__main__":
