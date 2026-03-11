@@ -9,7 +9,7 @@ def test_ascii_dump_lines():#test ascii conversion of a single character
     assert "0x1001 : 0x00" in lines#check the null terminator is correct
     assert length == 1#check the length is correct 
 
-def test_ascii_dumo_word():#test ascii conversion of a word
+def test_ascii_dump_word():#test ascii conversion of a word
     lines, length = ascii_dump_lines("Hi") #convert the string Hi
 
     assert "0x1000 : 0x48" in lines#check the ascii value of H is correct
