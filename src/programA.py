@@ -54,21 +54,46 @@ def main():
 
         elif choice == '2':
 
-            try:
-                n = int(input("Enter integer n (0-65535): "))
-                addr = int(input("Enter memory address: "))
-            except ValueError:
-                print("Invalid input.")
-                continue
-            result = option2_little_endian(n, addr)
+            # repeatedly asking for n until user enters a valid 16-bit number
+            while True:
+                try:
+                    n = int(input("Enter integer n (0-65535): "))
 
-            print(f"Low Byte: {result['low']}")
-            print(f"High Byte: {result['high']}")
-            print(f"Unpacked: {result['unpacked']}")
-            print(f"Memory[{hex(result['addr'])}] = 0x{result['low']:02X}")
-            print(f"Memory[{hex(result['addr']+1)}] = 0x{result['high']:02X}")
-            print(f"Read memory[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
-            print(f"Read memory[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
+                    # checking that the number is within the allowed 16-bit range
+                    if 0 <= n <= 65535:
+                        break # validating input in order to move on
+                    else:
+                        print("Please enter a number between 0 and 65535.")
+
+                # happens if user types something that isn't a number
+                except ValueError:
+                    print("Invalid input. Please enter a valid number.")
+
+            # now asking for the memory address
+            # also accepts hexadecimal like 0x2000
+            while True:
+                try:
+                    addr = int(input("Enter memory address (decimal or hex e.g. 0x2000: ) "), 0)
+                    break
+
+                except ValueError:
+                    print("Invalid address. Try again.")
+                
+                # calling the function that performs the little-endian packing
+                result = option2_little_endian(n, addr)
+
+                # displaying the results so the user can see how the number was split into bytes
+                print(f"LOW BYTE = {result['low']}")
+                print(f"HIGH BYTE = {result['high']}")
+                print(f"UNPACKED = {result['unpacked']}")
+
+                # shpwing how the bytes were written into memory
+                print(f"MEM[{hex(result['addr'])}] = 0x{result['low']:02X}")
+                print(f"MEM[{hex(result['addr']+1)}] = 0x{result['high']:02X}")
+
+                # reading the same memory back to prove the value can be reconstructed
+                print(f"READ MEM[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
+                print(f"READ MEM[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
 
         elif choice == '3':
             s = input("Enter a string (max 10 characters): ")
@@ -108,11 +133,11 @@ def main():
             break
 
         else:
-
-        print()
+            
+            print()
 
 if __name__ == "__main__":
-        main()
+    main()
 
 
 

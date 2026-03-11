@@ -21,7 +21,7 @@ def memory_write(addr: int, byte: int) -> None:
      if not isinstance(byte, int):
         raise ValueError("Byte must be an integer")
      if not (0 <= byte <= 255):
-        raise ValueError("Byte must be betweeb 0 and 255")
+        raise ValueError("Byte must be between 0 and 255")
 
     # storing byte at given address in simulated memory
      memory[addr] = byte
