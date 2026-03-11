@@ -1,6 +1,6 @@
 #importing functions from other files
 #this helps keep it organised and allows each option to be implemented separately
-from option5_stack import option5
+from option5_stack import stack_frame_lines
 from option4_array import array_addressing
 from option2_endian import option2_little_endian
 from option3_ascii import ascii_dump_lines
@@ -46,7 +46,7 @@ def option1():#this function performs option 1 from the menu
             print("Invalid input. Please enter a number. ")
     
     if 0 <= n <= 65535:
-        hex_val, bin_val, signed = convert(n)
+        hex_val, bin_val, signed = convert(n) #call the convert function
         
         print(f"Hexadecimal: {hex_val}")
         print(f"Binary: {bin_val}")
@@ -54,17 +54,17 @@ def option1():#this function performs option 1 from the menu
     else:
         print("Invalid input. Please enter a number between 0 and 65535.")
 
-def main():
+def main():#main program loop
     while True:
         show_menu()
 
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice: ")#get users menu choice
 
-        if choice == '1':
+        if choice == '1': #option 1 - number conversion
             option1()
 
-        elif choice == '2':
-            while True:
+        elif choice == '2': #option 2 - little endian packing
+            while True: #validate number input
                 try:
                     n = int(input("Enter integer n (0-65535): "))
                     if 0 <= n <= 65535:
@@ -100,9 +100,9 @@ def main():
             print(f"READ MEM[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
             print(f"READ MEM[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
 
-        elif choice == '3':
+        elif choice == '3': #option 3-ascii memory dump
 
-            while True:
+            while True: #validate string input
                 s = input("Enter a string (max 10 characters): ")
 
                 if len(s) == 0:
@@ -118,22 +118,22 @@ def main():
 
                 break
     
-            lines,length = ascii_dump_lines(s)
+            lines,length = ascii_dump_lines(s) #call the ascii dump function
 
-            for line in lines:
+            for line in lines:#print the memory dump
                 print(line)
 
-            print(f"Length (until 0x00) {length}")
+            print(f"Length (until 0x00) {length}") #display the calculated length
 
-        elif choice == '4': 
-            try:
+        elif choice == '4': #option 4 - array addressing 
+            try: #get base address and index
                 base = int(input("Base address: "))
                 index = int(input("Index: "))
             except ValueError:
                 print("Invalid input. ")
                 return
 
-            while True:
+            while True: #validate element size
                 try:
                     size = int(input("Element size (1 or 2): "))
                     if size in (1, 2):
@@ -143,21 +143,38 @@ def main():
                 except ValueError:
                     print("Invalid input. Please enter 1 or 2.")
 
-            while True:
+            while True:#validate mode
                 mode = input("Mode (read/write): ").lower()
                 if mode in ("read", "write"):
                     break
                 else:
                     print("Invalid input. Please enter 'read' or 'write'.")
 
-            if mode == "write":
+            if mode == "write": #perform memory operation
                 value = int(input("Value:"))
                 array_addressing(base, index, size, mode, value)
             else:
                 array_addressing(base, index, size, mode)
 
-        elif choice == '5':
-            option5()
+        elif choice == '5': #option 5 stack frame
+
+            while True: #validate number of local variables
+                try:
+                    a = int(input("Enter value for a: "))
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a number. ")
+
+            while True:
+                try: 
+                    b = int(input("Enter value for b: "))
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a number. ")
+            
+            lines = stack_frame_lines(a, b) #call the stack frame function
+            for line in lines: #print the stack frame
+                print(line)
 
         elif choice == '0':
             print("Exiting the program. Goodbye!")
@@ -167,7 +184,7 @@ def main():
             
             print()
 
-if __name__ == "__main__":
+if __name__ == "__main__": #ensures the program runs when it is executed directly
     main()
 
 
