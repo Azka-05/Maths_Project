@@ -76,7 +76,7 @@ def main():
 
             while True:
                 try:
-                    addr = int(input("Enter memory address: "))
+                    addr = int(input("Enter memory address (decimal or hex e.g. 0x2000): "), 0)
                     if addr >= 0:
                         break
                     else:
