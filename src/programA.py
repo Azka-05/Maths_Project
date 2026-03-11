@@ -28,12 +28,20 @@ def convert(n):
     return hex_val, bin_val, signed
 
 def option1():
-    try:
-        n = int(input("Enter a decimal number (0-65535): "))
-    except ValueError:
-        print("Invalid input. Please enter a number.")
-        return
 
+    while True:
+        try:
+            n = int(input("Enter a decimal number (0-65535): "))
+
+            if 0 <= n <= 65535:
+                break
+
+            else:
+                print("Invalid input. Please enter a number between 0 and 65535.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number. ")
+    
     if 0 <= n <= 65535:
         hex_val, bin_val, signed = convert(n)
         
@@ -54,12 +62,23 @@ def main():
 
         elif choice == '2':
 
-            try:
-                n = int(input("Enter integer n (0-65535): "))
-                addr = int(input("Enter memory address: "))
-            except ValueError:
-                print("Invalid input.")
-                continue
+            while True:
+                try:
+                    n = int(input("Enter integer n (0-65535): "))
+                    if 0 <= n <= 65535:
+                        break
+                    else:
+                        print("Invalid input. Please enter a number between 0 and 65535.")
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+                    
+            while True:
+                try:
+                    addr = int(input("Enter memory address: "))
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a number. ")
+        
             result = option2_little_endian(n, addr)
 
             print(f"Low Byte: {result['low']}")
@@ -71,28 +90,54 @@ def main():
             print(f"Read memory[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
 
         elif choice == '3':
-            s = input("Enter a string (max 10 characters): ")
 
-            try:
-                lines,length = ascii_dump_lines(s)
+            while True:
+                s = input("Enter a string (max 10 characters): ")
 
-                for line in lines:
-                    print(line)
+                if len(s) == 0:
+                    print("Input cannot be empty. Please enter at least one letter. ")
+                    continue
 
-                print(f"Length (until 0x00) {length}")
+                if len(s) > 10:
+                    print("Invalid input. Maximum length is 10 characters.")
+                    continue
+                if not s.isalpha():
+                    print("Invalid input. Only letters A-Z are allowed. ")
+                    continue
 
-            except ValueError as e:
-                print(e)    
+                break
+    
+            lines,length = ascii_dump_lines(s)
+
+            for line in lines:
+                print(line)
+
+            print(f"Length (until 0x00) {length}")
 
         elif choice == '4': 
             try:
                 base = int(input("Base address: "))
                 index = int(input("Index: "))
-                size = int(input("Element size (1 or 2): "))
-                mode = input("Mode (read/write): ") 
             except ValueError:
-                print("Invalid input.")
-                continue
+                print("Invalid input. ")
+                return
+
+            while True:
+                try:
+                    size = int(input("Element size (1 or 2): "))
+                    if size in (1, 2):
+                        break
+                    else:
+                        print("Invalid input. Please enter 1 or 2.")
+                except ValueError:
+                    print("Invalid input. Please enter 1 or 2.")
+
+            while True:
+                mode = input("Mode (read/write): ").lower()
+                if mode in ("read", "write"):
+                    break
+                else:
+                    print("Invalid input. Please enter 'read' or 'write'.")
 
             if mode == "write":
                 value = int(input("Value:"))
@@ -108,11 +153,10 @@ def main():
             break
 
         else:
-
-        print()
+            print()
 
 if __name__ == "__main__":
-        main()
+    main()
 
 
 
