@@ -79,17 +79,23 @@ def main():
                     else:
                         print("Invalid input. Address must be non-negative.")
                 except ValueError:
-                    print("Invalid input. Please enter a number.")
-
+                    print("Invalid address. Try again.")
+                
+            # calling the function that performs the little-endian packing
             result = option2_little_endian(n, addr)
 
-            print(f"Low Byte: {result['low']}")
-            print(f"High Byte: {result['high']}")
-            print(f"Unpacked: {result['unpacked']}")
-            print(f"Memory[{hex(result['addr'])}] = 0x{result['low']:02X}")
-            print(f"Memory[{hex(result['addr']+1)}] = 0x{result['high']:02X}")
-            print(f"Read memory[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
-            print(f"Read memory[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
+            # displaying the results so the user can see how the number was split into bytes
+            print(f"LOW BYTE = {result['low']}")
+            print(f"HIGH BYTE = {result['high']}")
+            print(f"UNPACKED = {result['unpacked']}")
+
+            # showing how the bytes were written into memory
+            print(f"MEM[{hex(result['addr'])}] = 0x{result['low']:02X}")
+            print(f"MEM[{hex(result['addr']+1)}] = 0x{result['high']:02X}")
+
+            # reading the same memory back to prove the value can be reconstructed
+            print(f"READ MEM[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
+            print(f"READ MEM[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
 
         elif choice == '3':
 
