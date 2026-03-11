@@ -1,9 +1,9 @@
 #importing functions from other files
 #this helps keep it organised and allows each option to be implemented separately
-from option5_stack import stack_frame_lines
-from option4_array import array_addressing
-from option2_endian import option2_little_endian
-from option3_ascii import ascii_dump_lines
+from src.option5_stack import stack_frame_lines
+from src.option4_array import array_addressing
+from src.option2_endian import option2_little_endian
+from src.option3_ascii import ascii_dump_lines
 
 #function to display the main menu to the user
 def show_menu():
