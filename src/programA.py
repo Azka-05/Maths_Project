@@ -59,7 +59,12 @@ def main():#main program loop
     while True:
         show_menu()
 
-        choice = input("Enter your choice: ")#get users menu choice
+        while True: #validate menu choice
+            choice = input("Enter your choice: ") #get users menu choice
+            if choice in ('0', '1', '2', '3', '4', '5'):
+                break
+            else:
+                print("Invalid choice. Please enter a number from the menu options.")
 
         if choice == '1': #option 1 - number conversion
             option1()
