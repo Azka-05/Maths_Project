@@ -1,9 +1,11 @@
+#importing functions from other files
+#this helps keep it organised and allows each option to be implemented separately
 from option5_stack import option5
 from option4_array import array_addressing
 from option2_endian import option2_little_endian
 from option3_ascii import ascii_dump_lines
 
-
+#function to display the main menu to the user
 def show_menu():
     print("\n=================================================")
     print("Welcome to the Hex, Memory and Stack Calculator!")
@@ -16,20 +18,21 @@ def show_menu():
     print("5) Stack frame")
     print("0) Exit")
 
+#function used in option 1 to convert a number into different representations
 def convert(n):
-    hex_val = format(n, "X")
-    bin_val = format(n, "016b")
+    hex_val = format(n, "X") #convert decimal to hexadecimal
+    bin_val = format(n, "016b")#convert decimal to 16-bit binary string
 
     if n < 32768:
         signed = n 
     else:
         signed = n - 65536 
 
-    return hex_val, bin_val, signed
+    return hex_val, bin_val, signed#return the results so they can be printed
 
-def option1():
+def option1():#this function performs option 1 from the menu
 
-    while True:
+    while True:#keep looping until we get valid input
         try:
             n = int(input("Enter a decimal number (0-65535): "))
 
