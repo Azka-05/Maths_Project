@@ -7,7 +7,8 @@ from src.option3_ascii import ascii_dump_lines
 
 #function to display the main menu to the user
 def show_menu():
-    print("\n=================================================")
+    print("\n=================================================\n")
+
     print("Welcome to the Hex, Memory and Stack Calculator!")
     print("\n=================================================")
     print("Please select an option:")
