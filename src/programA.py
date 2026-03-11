@@ -1,4 +1,20 @@
 from option5_stack import option5
+from option4_array import array_addressing
+from option2_endian import option2_little_endian
+from option3_ascii import ascii_dump_lines
+
+
+def show_menu():
+    print("\n=================================================")
+    print("Welcome to the Hex, Memory and Stack Calculator!")
+    print("\n=================================================")
+    print("Please select an option:")
+    print("1) Convert (decimal to hexadecimal and 16-bit binary)")
+    print("2) Little-endian pack/unpack (16-bit)")
+    print("3) ASCII memory dump")
+    print("4) Array addressing")
+    print("5) Stack frame")
+    print("0) Exit")
 
 def convert(n):
     hex_val = format(n, "X")
@@ -7,14 +23,20 @@ def convert(n):
     if n < 32768:
         signed = n 
     else:
-        signed = n - 65536 #these values represent the binary in 16bit, highest and lowesst
+        signed = n - 65536 
 
     return hex_val, bin_val, signed
 
 def option1():
-    n = int(input("Enter a decimal number (0-65535): "))
+    try:
+        n = int(input("Enter a decimal number (0-65535): "))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
     if 0 <= n <= 65535:
         hex_val, bin_val, signed = convert(n)
+        
         print(f"Hexadecimal: {hex_val}")
         print(f"Binary: {bin_val}")
         print(f"Signed Integer: {signed}")
@@ -24,64 +46,73 @@ def option1():
 def main():
     while True:
         show_menu()
+
         choice = input("Enter your choice: ")
+
         if choice == '1':
             option1()
+
+        elif choice == '2':
+
+            try:
+                n = int(input("Enter integer n (0-65535): "))
+                addr = int(input("Enter memory address: "))
+            except ValueError:
+                print("Invalid input.")
+                continue
+            result = option2_little_endian(n, addr)
+
+            print(f"Low Byte: {result['low']}")
+            print(f"High Byte: {result['high']}")
+            print(f"Unpacked: {result['unpacked']}")
+            print(f"Memory[{hex(result['addr'])}] = 0x{result['low']:02X}")
+            print(f"Memory[{hex(result['addr']+1)}] = 0x{result['high']:02X}")
+            print(f"Read memory[{hex(result['addr'])}] = 0x{result['read_low']:02X}")
+            print(f"Read memory[{hex(result['addr']+1)}] = 0x{result['read_high']:02X}")
+
+        elif choice == '3':
+            s = input("Enter a string (max 10 characters): ")
+
+            try:
+                lines,length = ascii_dump_lines(s)
+
+                for line in lines:
+                    print(line)
+
+                print(f"Length (until 0x00) {length}")
+
+            except ValueError as e:
+                print(e)    
+
+        elif choice == '4': 
+            try:
+                base = int(input("Base address: "))
+                index = int(input("Index: "))
+                size = int(input("Element size (1 or 2): "))
+                mode = input("Mode (read/write): ") 
+            except ValueError:
+                print("Invalid input.")
+                continue
+
+            if mode == "write":
+                value = int(input("Value:"))
+                array_addressing(base, index, size, mode, value)
+            else:
+                array_addressing(base, index, size, mode)
+
         elif choice == '5':
             option5()
+
         elif choice == '0':
             print("Exiting the program. Goodbye!")
             break
+
         else:
-            print("Invalid choice. Please try again.")
 
-def show_menu():
-    print("Welcome to the Maths Converter!")
-    print("Please select an option:")
-    print("1) Convert Decimal to Hexadecimal (16-bit)")
-    print("2) Little-endian pack/unpack (16-bit)")
-    print("3) ASCII memory dump")
-    print("4) Array addressing")
-    print("5) Stack frame")
-    print("0) Exit")
-
-#def convert(n):
-
-#def ascii
-def ascii_dump_lines(s, base=0x1000):
-    if len(s) > 10:
-        raise ValueError("String must be at most 10 characters")
-    memory = {}
-
-    for i, ch in enumerate(s):
-        address = base + i
-        ascii_value = ord(ch)
-        memory[address] = ascii_value
-
-    null_address = base + len(s) 
-    memory[null_address] = 0   
-
-    line = []
-
-    for address in range(base, base + len(s) + 1):
-        value = memory[address]
-        formatted_line = f"0x{address:04x} : 0x{value:02X}"
-        lines.append(formatted_line)
-
-    length = 0
-    current_address = base
-
-    while memory[current_address] != 0:
-        length += 1 
-        current_address +=1
-
-    return lines, length        
-
-
-
+        print()
 
 if __name__ == "__main__":
-    main()
+        main()
 
 
 
