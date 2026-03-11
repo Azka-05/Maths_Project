@@ -1,14 +1,14 @@
 #test for option 1
-from src.programA import convert
+from src.programA import convert #importing the conver function from the main program to test it
 
-def test_convert():
-    hex_val, bin_val, signed = convert(10)
-    assert hex_val == "A"
-    assert bin_val == "0000000000001010"
-    assert signed == 10
+def test_convert(): #testing a decimal conversion
+    hex_val, bin_val, signed = convert(10) #convert 10
+    assert hex_val == "A" #check the hexadecimal value is correct
+    assert bin_val == "0000000000001010" #check the binary value is correct
+    assert signed == 10 #check the signed value is correct
 
-def test_convert_signed():
-    hex_val, bin_val, signed = convert(65535)
-    assert hex_val == "FFFF"
-    assert bin_val == "1111111111111111"
-    assert signed == -1
+def test_convert_signed(): #testing 16-bit signed conversion
+    hex_val, bin_val, signed = convert(65535) #convert 65535 (maximum bit value)
+    assert hex_val == "FFFF" #check the hexadecimal value is correct
+    assert bin_val == "1111111111111111" #check the binary value is correct
+    assert signed == -1 #check if signed value is correct
