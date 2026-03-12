@@ -48,8 +48,6 @@ def main():#main program loop
             print(f"Binary: {bin_val}")
             print(f"Signed Integer: {signed}")
 
-            
-
         elif choice == '2': #option 2 - little endian packing
             while True: #validate number input
                 try:
