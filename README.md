@@ -38,7 +38,7 @@ No external packages are needed.
 From the project root directory, run:
 
 ```
-python -m src.programA
+py -m src.programA for windows and python -m src.programA for mac
 ```
 
 This command launches the menu-driven interface and displays the available program options. 
@@ -61,13 +61,13 @@ Automated unit tests are included to verify the program behaves correctly. These
 To run the tests from the project root directory, use:
 
 ```
-python -m unittest
+py -m pytest for windows and python -m pytest for mac
 ```
 
 For more detailed test output you can run:
 
 ```
-python -m unittest -v
+py -m pytest -v for windows and python -m pytest -v for mac
 ```
 
 The tests check several important parts of the program including:
