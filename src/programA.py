@@ -4,6 +4,7 @@ from src.option5_stack import stack_frame_lines
 from src.option4_array import array_addressing
 from src.option2_endian import option2_little_endian
 from src.option3_ascii import ascii_dump_lines
+from src.option1_convert import decimal_to_hex_16bit
 
 #function to display the main menu to the user
 def show_menu():
@@ -19,41 +20,6 @@ def show_menu():
     print("5) Stack frame")
     print("0) Exit")
 
-#function used in option 1 to convert a number into different representations
-def convert(n):
-    hex_val = format(n, "X") #convert decimal to hexadecimal
-    bin_val = format(n, "016b")#convert decimal to 16-bit binary string
-
-    if n < 32768:
-        signed = n 
-    else:
-        signed = n - 65536 
-
-    return hex_val, bin_val, signed#return the results so they can be printed
-
-def option1():#this function performs option 1 from the menu
-
-    while True:#keep looping until we get valid input
-        try:
-            n = int(input("Enter a decimal number (0-65535): "))
-
-            if 0 <= n <= 65535:
-                break
-
-            else:
-                print("Invalid input. Please enter a number between 0 and 65535.")
-
-        except ValueError:
-            print("Invalid input. Please enter a number. ")
-    
-    if 0 <= n <= 65535:
-        hex_val, bin_val, signed = convert(n) #call the convert function
-        
-        print(f"Hexadecimal: {hex_val}")
-        print(f"Binary: {bin_val}")
-        print(f"Signed Integer: {signed}")
-    else:
-        print("Invalid input. Please enter a number between 0 and 65535.")
 
 def main():#main program loop
     while True:
@@ -67,7 +33,22 @@ def main():#main program loop
                 print("Invalid choice. Please enter a number from the menu options.")
 
         if choice == '1': #option 1 - number conversion
-            option1()
+            while True:
+                try:
+                    n = int(input("Enter a decimal number (0-65535): "))
+                    if 0 <= n <= 65535:
+                        break
+                    else:
+                        print("Invalid input. Please enter a number between 0 and 65535.")
+                except ValueError:
+                    print("Invalid input. Please enter a number. ")
+
+            hex_val, bin_val, signed = decimal_to_hex_16bit(n) #call the convert function
+            print(f"Hexadecimal: {hex_val}")
+            print(f"Binary: {bin_val}")
+            print(f"Signed Integer: {signed}")
+
+            
 
         elif choice == '2': #option 2 - little endian packing
             while True: #validate number input

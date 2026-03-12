@@ -1,15 +1,15 @@
 # conversion from decimal to hex and binary
 
-def decimal_to_hex_16bit():
-    try:
-        num = int(input("Enter a decimal number (0 - 65535): "))
+# option 1 conversion logic
 
-        if num < 0 or num > 65535:
-            print("Number out of range for 16-bit unsigned integer.")
-            return
+def decimal_to_hex_16bit(n):
 
-        hex_value = format(num, '04X')
-        print("Hexadecimal (16-bit):", hex_value)
+    hex_val = format(n, "X")
+    bin_val = format(n, "016b")
 
-    except ValueError:
-        print("Invalid input. Please enter a valid decimal number.")
+    if n < 32768:
+        signed = n
+    else:
+        signed = n - 65536
+
+    return hex_val, bin_val, signed
