@@ -10,5 +10,5 @@ def decimal_to_hex_16bit(n):
     if n < 32768: # check if the number is out of range for 16-bit unsigned integer
         signed = n # if the number is out of range, we can keep it as is for signed representation
     else:
-        signed = n - 65536 
-    return hex_val, bin_val, signed
+        signed = n - 65536  # convert to negative signed value
+    return hex_val, bin_val, signed #return all values
